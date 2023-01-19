@@ -178,7 +178,6 @@ resource "random_password" "user-password" {
   length     = 32
   special    = false
   depends_on = [null_resource.module_depends_on, google_sql_database_instance.default]
-  deletion_policy = var.user_deletion_policy
 }
 
 resource "random_password" "additional_passwords" {
@@ -190,7 +189,6 @@ resource "random_password" "additional_passwords" {
   length     = 32
   special    = false
   depends_on = [null_resource.module_depends_on, google_sql_database_instance.default]
-  deletion_policy = var.user_deletion_policy
 }
 
 resource "google_sql_user" "default" {
@@ -204,6 +202,7 @@ resource "google_sql_user" "default" {
     google_sql_database_instance.default,
     google_sql_database_instance.replicas,
   ]
+  deletion_policy = var.user_deletion_policy
 }
 
 resource "google_sql_user" "additional_users" {
@@ -217,6 +216,7 @@ resource "google_sql_user" "additional_users" {
     google_sql_database_instance.default,
     google_sql_database_instance.replicas,
   ]
+  deletion_policy = var.user_deletion_policy
 }
 
 
